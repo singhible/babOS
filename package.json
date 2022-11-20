@@ -1,0 +1,19 @@
+{
+  "name": "babos",
+  "version": "2.0.0",
+  "description": "Desktop Enviornment in the browser",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/singhible/babOS.git"
+  },
+  "author": "Babanpreet Singh",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/singhible/babOS/issues"
+  },
+  "homepage": "https://github.com/singhible/babOS#readme"
+}
