@@ -1,7 +1,5 @@
-export default function Home() {
-  return (
-    <div>
-      <h1>Creating the default react app</h1>
-    </div>
-  )
+import type { ReactElement } from 'react'
+
+export default function Home(): ReactElement{
+  return <h1>Creating the default app</h1>
 }
