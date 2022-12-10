@@ -8,12 +8,13 @@ class MyDocument extends Document {
         return { ...initialProps }
     }
 
-
+//  FIXME: Add the title tag in app.js to fix the warning
     render(): ReactElement {
         return(
             <Html lang="en">
                 <Head>
                     <title>babOS</title>
+                    <meta name="description" content="Desktop Enviornment in a browser"/>
                 </Head>
                 <body>
                     <Main />
