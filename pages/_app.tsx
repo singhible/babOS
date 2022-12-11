@@ -4,6 +4,7 @@ import { description, name } from "package.json"
 import type { ReactElement } from "react"
 import React from 'react'
 import { createGlobalStyle, ThemeProvider } from "styled-components"
+import defaultTheme from "themes/default.json"
 
 //  FIXME: fix the warning when do npm run dev
 
@@ -19,12 +20,6 @@ body {
 }
 `
 
-const theme = {
-  colors: {
-    primary: "#0070f3"
-  }
-}
-
 export default function App({ Component, pageProps }: AppProps): ReactElement {
   return (
     <>
@@ -33,7 +28,7 @@ export default function App({ Component, pageProps }: AppProps): ReactElement {
         <meta name="description" content={ description }/>
       </Head>
       <GlobalStyle />
-      <ThemeProvider theme={theme}>
+      <ThemeProvider theme={defaultTheme}>
       <Component {...pageProps} />
       </ThemeProvider>
     </>
