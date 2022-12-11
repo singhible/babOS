@@ -1,28 +1,49 @@
-import type { DocumentContext, DocumentInitialProps } from "next/document"
-import Document, { Head, Html, Main, NextScript } from "next/document"
-import type { ReactElement } from "react"
+import type { DocumentContext, DocumentInitialProps } from "next/document";
+import Document, { Head, Html, Main, NextScript } from "next/document";
+import type { ReactElement } from "react";
+import { ServerStyleSheet } from "styled-components";
 
 class MyDocument extends Document {
-    static async getInitialProps(ctx: DocumentContext): Promise<DocumentInitialProps> {
-        const initialProps = await Document.getInitialProps(ctx)
-        return { ...initialProps }
-    }
+  static async getInitialProps(
+    ctx: DocumentContext
+  ): Promise<DocumentInitialProps> {
+    const originalRenderPage = ctx.renderPage;
+    const sheet = new ServerStyleSheet();
 
-//  FIXME: Add the title tag in app.js to fix the warning
-    render(): ReactElement {
-        return(
-            <Html lang="en">
-                <Head>
-                    <title>babOS</title>
-                    <meta name="description" content="Desktop Enviornment in a browser"/>
-                </Head>
-                <body>
-                    <Main />
-                    <NextScript />
-                </body>
-            </Html>
-        )
+    try {
+      ctx.renderPage = () =>
+        originalRenderPage({
+          enhanceApp: (App) => (props) =>
+            sheet.collectStyles(<App {...props} />),
+        });
+
+      const initialProps = await Document.getInitialProps(ctx);
+
+      return {
+        ...initialProps,
+        styles: (
+          <>
+            {initialProps.styles}
+            {sheet.getStyleElement()}
+          </>
+        ),
+      };
+    } finally {
+      sheet.seal();
     }
+  }
+
+  render(): ReactElement {
+    return (
+      <Html lang="en">
+        <Head />
+        <body>
+          <Main />
+          <NextScript />
+        </body>
+      </Html>
+    );
+  }
 }
 
-    export default MyDocument
+export default MyDocument;
